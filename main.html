@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<div id="map" style="height: 500px;"></div>
+<script>
+    const map = L.map('map').setView([35.6812, 139.7671], 5);
+    L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
+        attribution: "地理院地図"
+    }).addTo(map);
+    const res = {
+        "shichimen":[35.3704374147482,138.35058431659],
+        "kitayatsu":[36.078922,138.322265],
+        "narakongo":[34.420315,135.671183],
+        "tateshinako":[36.049124,138.254122],
+        "hakodatesan":[41.759192,140.704278],
+        "utsukushigahara":[36.228414,138.132681],
+        "southalpgeopark":[35.232891,138.214104],
+        "asosan":[32.885464,131.052357],
+        "sakurajima":[31.492775,130.701063]
+    }
+    const conv = {
+        "shichimen" : "身延七面山",
+        "kitayatsu" : "北八ヶ岳",
+        "narakongo" : "奈良金剛山",
+        "tateshinako" : "蓼科湖",
+        "hakodatesan" : "函館山",
+        "utsukushigahara" : "美ヶ原",
+        "southalpgeopark" : "南アルプスジオパーク",
+        "asosan" : "阿蘇山",
+        "sakurajima" : "桜島",
+    }
+    Object.entries(res).forEach(([name,point])=>{
+        L.marker(point)
+        .addTo(map)
+        .bindTooltip(conv[name], { permanent: false })
+        .on('click', () => {
+            location.href = "./view.html?view="+name;
+        });
+    })
+</script>

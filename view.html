@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    .swiper { width: 100%; height: 80vh; }
+    .swiper-slide img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  </style>
+</head>
+<body>
+  <div class="swiper">
+    <div class="swiper-wrapper" id="swiper-wrapper"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const param = new URLSearchParams(window.location.search);
+        const name = param.get('view');
+        if (!name) return;
+        fetch('./json/' + name + '.json')
+            .then(res => res.json())
+            .then(files => {
+            files.sort()
+            const wrapper = document.getElementById('swiper-wrapper');
+            files.forEach(file => {
+                const slide = document.createElement('div');
+                slide.className = 'swiper-slide';
+                const img = document.createElement('img');
+                img.src = './img/' + name + '/' + file;
+                img.alt = file;
+                slide.appendChild(img);
+                wrapper.appendChild(slide);
+            });
+            const swiper = new Swiper('.swiper', {
+                preloadImages: true,
+                initialSlide: Math.max(0,files.length-1),
+                navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                loop: false,
+                centeredSlides: true,
+                spaceBetween: 10,
+                observer: true,
+                observeParents: true
+            });
+            swiper.update();
+        })
+        .catch(err => {
+            console.error(err);
+        });
+    });
+</script>
+</body>
+</html>
