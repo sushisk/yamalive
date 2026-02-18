@@ -1,0 +1,1 @@
+*/10 * * * * cd /usr/share/nginx/html && python3 dlp.py
