@@ -9,7 +9,7 @@ RUN apk update && \
         curl \
         ca-certificates \
         cronie
-
+#ytdlp
 RUN python3 -m pip install --break-system-packages --no-cache-dir yt-dlp
 WORKDIR /usr/share/nginx/html
 COPY html/ /usr/share/nginx/html/

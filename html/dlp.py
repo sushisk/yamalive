@@ -22,6 +22,7 @@ def capture(name,url):
     with open("./json/"+name+".json", "w") as f: json.dump(pics, f)
 
 dic = {
+    #url
     "shichimen":"https://www.youtube.com/watch?v=54NpKx_efis",
     "kitayatsu":"https://www.youtube.com/watch?v=_2LD45D2-cQ",
     "narakongo":"https://www.youtube.com/watch?v=8ir0mYl8Fpo",
